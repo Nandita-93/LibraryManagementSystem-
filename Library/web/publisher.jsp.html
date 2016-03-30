@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Book Details</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <%@ page language="java" %>
+<%@ page import ="java.sql.*" %>
+<%@ page import ="java.lang.*"%>
+<%@ page import ="java.lang.String"%>    
+<%
+try
+{
+String QueryString;
+
+Connection connection = null;
+Statement statement = null;
+ResultSet rs = null;
+String[] search=request.getParameterValues("search");
+String a1 =request.getParameter("bookid");
+String a2=request.getParameter("title");
+String a3=request.getParameter("author");
+/*Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+connection = DriverManager.getConnection("jdbc:odbc:data2","3023","3023");
+*/
+  Class.forName("com.mysql.jdbc.Driver");
+  connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","nandy123");  
+
+
+statement = connection.createStatement();
+
+    if (search[0].equals("bookid")){
+    QueryString = "SELECT book.bookid, title, author_name from book, book_authors where book.bookid ='" +a1+ "' and book.bookid=book_authors.bookid";
+    rs = statement.executeQuery(QueryString);
+    }
+    </body>
+</html>
